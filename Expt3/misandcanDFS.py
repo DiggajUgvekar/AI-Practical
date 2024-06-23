@@ -1,4 +1,4 @@
-from queue import deque
+from collections import deque
 
 m = int(input("No. of Missionaires : "))
 c = int(input("No. of Cannibals : "))

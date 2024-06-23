@@ -5,6 +5,7 @@ def heuristic(board):
     for i in range(len(board)):
         for j in range(i+1, len(board)):
             if board[i] == board[j] or abs(i - j) == abs(board[i] - board[j]):
+                #same column or same diagonal
                 conflicts += 1
     return conflicts
 
@@ -18,8 +19,9 @@ def solve_queens(initial_board):
 
     while current_heuristic > 0:
         # Generate a random move (swap two rows)
-        row1, row2 = random.sample(range(1, 9), 2)
+        row1, row2 = random.sample(range(1, 9), 2) #selects 2 unique random numbers
         current_board[row1-1], current_board[row2-1] = current_board[row2-1], current_board[row1-1]
+        #swap
 
         new_heuristic = heuristic(current_board)
         if new_heuristic < current_heuristic:
@@ -31,11 +33,12 @@ def solve_queens(initial_board):
             # Undo the move if it doesn't lead to improvement
             current_board[row1-1], current_board[row2-1] = current_board[row2-1], current_board[row1-1]
             same_state_count += 1
+
         #to solve local minima
         if same_state_count >= max_same_state_count:
             # Perform a random move to a neighboring state
-            row1, row2 = random.sample(range(1, 9), 2)
-            current_board[row1-1], current_board[row2-1] = current_board[row2-1], current_board[row1-1]
+            row1, row2 = random.sample(range(1, 9), 2) 
+            current_board[row1-1], current_board[row2-1] = current_board[row2-1], current_board[row1-1] #swap
             same_state_count = 0  # Reset same state counter
 
     print("Solution Found!")

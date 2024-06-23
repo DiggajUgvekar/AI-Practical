@@ -3,6 +3,7 @@ def print_state(state):
         print(state[i:i + 3])
 
 def heuristic(state, goal_state):
+    #count the misplaced tiles
     return sum(1 for i in range(9) if state[i] != goal_state[i])
 
 def move(state, direction):
@@ -56,6 +57,5 @@ def solve_puzzle(initial_state, goal_state, max_steps=1000):
 
 
 initial_state = tuple(map(int, input("Enter initial state : ").split()))
-goal_state = (1, 2, 3, 8, 0, 4, 7, 6, 5)
-
+goal_state = (1, 2, 3, 4, 5, 6 , 7 , 8 , 0)
 solve_puzzle(initial_state, goal_state)

@@ -1,4 +1,4 @@
-from queue import deque
+from collections import deque
 
 m = int(input("No. of Missionaires : "))
 c = int(input("No. of Cannibals : "))
@@ -12,6 +12,7 @@ def is_valid(state):
     if m1 < 0  or m2 < 0 or c1 < 0 or c2 < 0:
         return False
     if  (m1 and m1 < c1)  or (m2 and m2 < c2):
+        #missionaries less than cannibals
         return False
     return True
 
@@ -25,7 +26,7 @@ def generate_successors(state):
         moved_ms, moved_cn =action
 
         if n == 1:
-            new_state = (m - moved_ms, c - moved_cn, 0)
+            new_state = (m - moved_ms, c - moved_cn, 0)  #left to right
         else:
             new_state = (m + moved_ms, c + moved_cn, 1)
             
@@ -35,11 +36,11 @@ def generate_successors(state):
     return successors
 
 def bfs():
-    start_state = (m, c, 1)
+    start_state = (m, c, 1)  #(1 -> Left)  & (0 -> right)
     goal_state = (0, 0, 0)
 
     visited = set()
-    q = deque([(start_state,[])])
+    q = deque([(start_state,[])]) #state and path
 
     while q:
         current_state = q.popleft()
@@ -58,7 +59,7 @@ def bfs():
 
         for successor in generate_successors(state):
             if successor not in visited:
-                q.append((successor,path.copy()))
+                q.append((successor,path.copy())) #new copy of the path is created for each successor.
 
 
 bfs()

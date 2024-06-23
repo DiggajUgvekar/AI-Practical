@@ -23,8 +23,8 @@ class Graph:
     
     def a_star(self, start, goal):
         frontier = [(0, start)]
-        came_from = {}
-        cost_so_far = {start: 0}
+        came_from = {} #The came-from dictionary records the predecessors of each state along the shortest path found so far.
+        cost_so_far = {start: 0}   #This dictionary keeps track of the cost of the shortest path found so far to each state.
         
         while frontier:
             current_cost, current_node = heapq.heappop(frontier)
@@ -49,6 +49,7 @@ class Graph:
                 if neighbor not in cost_so_far or new_cost < cost_so_far[neighbor]:
                     cost_so_far[neighbor] = new_cost
                     priority = new_cost + self.heuristic[neighbor]
+                    #f(n) = g(n) + h(n)
                     heapq.heappush(frontier, (priority, neighbor))
                     came_from[neighbor] = current_node
         
